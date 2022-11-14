@@ -1,0 +1,237 @@
+<html>
+    <head>
+        <title>2022 PMT's year review</title>
+        <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col">
+                    <h1>2022 PMT's year review</h1>
+                </div>
+             </div>
+             <hr class="border-4 border-top bg-dark border-dark mb-5">
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>JIRA/Tempo</h2>
+                    <p class="fs-5">Some stats, from the January 1rst to the 10th of November, and comparing with last year, same period:</p>
+                    <ul class="fs-5">
+                        <li>758 timesheet lines <i>(930 in 2021)</i></li>
+                        <li>173 worked days <i>(187 in 2021)</i></li>
+                        <li>232 different issues <i>(257 in 2021)</i></li>
+                        <li>72 hours on AGFR-1 <i>(132 hours in 2021)</i></li>
+                        <li>1h46m avg. per TS lines <i>(1h35m in 2021)</i></li>
+                    </ul>
+                    <p class="fs-5">The time unit on the following graphs is the <i>second</i>, as it is what is returned
+                    by the JIRA/Tempo API.</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Issues resolved ("assigned to me when closed") per month</h2>
+                    <p class="fs-5">Here are the number of issues being closed per month, where I am the assignee at closing,
+                        with last year as a comparison base. It does not
+                    reveal every issues I could have worked on, because I sometimes work on other colleagues' ones, or I am not the assignee
+                        for some reasons at closing (e.g. giving them back to the PO for testing).</p>
+                    <canvas id="issuesResolvedPerMonth"></canvas>
+                    <p class="fs-5">Some remarks:</p>
+                    <ul class="fs-5">
+                        <li>Less in may, june, july, august, sept. because geocom + COVID + sick leave + vacations + FOSS4G + travel to Bonn for DT</li>
+                        <li>November was unfinished when the data have been computed</li>
+                        <li>Issues outside of the GEO support project are also counted, the majority of the issues are related to this project anyway.</li>
+                        <li>Comparing data from one year to the next one does not allow us to conclude of any tendencies.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Time spent per JIRA projects</h2>
+                    <canvas id="timeSpentPerProjects"></canvas>
+                    <p class="fs-5">No surprises: Working mainly on support tickets, then DT. It is funny to see
+                        that PGFR is at the third place though, this is due to the Geocom2022, FOSS4G at Firenze, and the Rennes3D tender.
+                    </p>
+                    <p class="fs-5">I timesheeted 72 hours more than last year on GEO/support issues, considering my
+                        sick leave in july, this is quite a huge increase. This can probably be explained by Jean-Marc's
+                        resignation, being the only one left in the team for maintenance & support.</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Time spent on GEO issues per organizations</h2>
+                    <canvas id="timeSpentGEOPerOrg"></canvas>
+                    <p class="fs-5">I am a bit surprised by <b>geo2france</b> being the first one,
+                        I would have expected <b>rennes</b> here.</p>
+                    <p class="fs-5"><b>georhena</b>: migration to "without the sysadmin
+                    team" project typology.</p><p class="fs-5"><b>geograndest</b>: migration to k8s.</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Original estimate vs time spent</h2>
+                    <p class="fs-5">A few amount of the JIRA issues I worked on have estimates (13 %). I wanted to check if the reality
+                    was close to the estimation, and get back to the problems encountered when we exceeded the time
+                    originally planned.</p>
+                    <canvas id="originalEstimateVsTimeSpent"></canvas>
+                    <p class="fs-5">Some remarks:</p>
+                    <ul class="fs-5">
+                        <li>on 31 JIRA issues (where I TS'ed time on Tempo & an estimate was available), 15 exceeded the original estimated time</li>
+                        <li>in the 15 over-timesheeted tickets, 4 are exceeding with a neglictible amount of time (minutes or hours, and compared to the original estimated time)</li>
+                        <li>GSEST-400: NextCloud ...</li>
+                        <li>GSEST-395: the issue assigned to me, but Gabriel actually did work on it</li>
+                        <li>GSBIOTOP-5: Need to deal with the frontend team, who was not at its ease with k8s deployments (no access)</li>
+                        <li>GSSTDIZIER: AMN's upgrading skills in Ansible, I have not touched the issues much</li>
+                        <li>GSGRENTWRK: project context complicated ... (infrastructure access & constraints => unforeseeable complexity)</li>
+                    </ul>
+                    <p class="fs-5">Outside of the problems mentioned above, I am surprised to see that estimations are generally quite accurate.</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Number of opened issues</h2>
+                    <p class="fs-5">This data have been gathered by a Prometheus instance
+                    configured with a long retention</p> deployed on <i>Obelix</i>.
+                    <canvas id="openedIssuesOnJira"></canvas>
+                    <p class="fs-5">I consider myself as "overwhelmed" when I reach the 20 assigned issues limit. Having been able
+                    to reach 30 at the begining of september is definitely insane. Main conclusion from this graph, is that I don't
+                    have the privilege to get bored, at least not because of lack of things to do ...</p>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col">
+                    <h2>Tag cloud</h2>
+                    <img src="./imgs/tagcloud.png" alt="tag cloud" class="img-fluid">
+                    <p class="fs-5">The data are computed from the labels being set on the JIRA issues I worked on:</p>
+                    <ul class="fs-5">
+                        <li>Support appearing <b>17 times</b></li>
+                        <li>geonetwork: <b>14 times</b></li>
+                        <li>geocontrib: <b>13 times</b> (not developed by C2C, why should I even care ??!)</li>
+                        <li>outage: <b>10 times</b>, every tagged issues relate to <b>grandest</b></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+    <script language="javascript" src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script language="javascript" src="./chartjs/package/dist/chart.min.js"></script>
+    <script language="javascript" src="./js/data.js"></script>
+    <script>
+        new Chart(
+            document.getElementById('issuesResolvedPerMonth'),
+            {
+                type: 'bar',
+                data: {
+                    labels: issuesResolvedPerMonth.labels,
+                    datasets: [
+                    {
+                        label: 'issues resolved per month (2021)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: issuesResolvedPerMonth.data_2021,
+                    }
+                    ,{
+                        label: 'issues resolved per month (2022)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.9)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        data: issuesResolvedPerMonth.data,
+                    }]
+                },
+                options: {}
+            }
+        );
+        new Chart(
+            document.getElementById('timeSpentPerProjects'),
+            {
+                type: 'bar',
+                data: {
+                    labels: timeSpentPerProjects.labels,
+                    datasets: [{
+                        label: 'time spent per projects',
+                        backgroundColor: 'rgba(54, 162, 235, 0.9)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        data: timeSpentPerProjects.data,
+                    }]
+                },
+                options: {}
+            }
+        );
+
+        //timeSpentGEOPerOrg
+        new Chart(
+            document.getElementById('timeSpentGEOPerOrg'),
+            {
+                type: 'bar',
+                data: {
+                    labels: timeSpentGEOPerOrg.labels,
+                    datasets: [{
+                        label: 'time spent per organizations on GEO issues',
+                        backgroundColor: 'rgba(54, 162, 235, 0.9)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        data: timeSpentGEOPerOrg.data,
+                    }]
+                },
+                options: {}
+            }
+        );
+
+        // originalEstimateVsTimeSpent
+        new Chart(
+            document.getElementById('originalEstimateVsTimeSpent'),
+            {
+                type: 'bar',
+                data: {
+                    labels: originalEstimateVsTimeSpent.labels,
+                    datasets: [{
+                        label: 'Original estimate',
+                        backgroundColor: 'rgba(54, 162, 235, 0.9)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        data: originalEstimateVsTimeSpent.originalEst,
+                    },
+                    {
+                        label: 'Time spent',
+                        backgroundColor: 'rgba(255, 99, 132, 0.9)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: originalEstimateVsTimeSpent.timeSpent,
+                    }
+                ]
+                },
+                options: {}
+            }
+        );
+        //openedIssuesOnJira
+        new Chart(
+            document.getElementById('openedIssuesOnJira'),
+            {
+                type: 'line',
+                data: {
+                    labels: openedIssuesOnJira.labels.map(function(it) {
+                        const parsed = new Date(it);
+                        return parsed.toISOString();
+                    }),
+                    datasets: [
+                    {
+                        label: 'Number of opened issues assigned to me',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        data: openedIssuesOnJira.data,
+                        fill: true
+                    }
+                ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 20.1
+                            }
+                        }]
+                    }
+                }
+            }
+        );
+
+      </script>
+</html>
